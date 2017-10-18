@@ -40,16 +40,16 @@ public class BallManager : MonoBehaviour
     {
         if (_gridManager == null)
         {
-			_gridManager = new GridManager(10, level.numRows + 3, CELL_SIZE_X, CELL_SIZE_Y);
+			_gridManager = new GridManager(10, level.numRows + level.extraRows, CELL_SIZE_X, CELL_SIZE_Y);
             _numberOfDiffColor = level.GetNumColor();
         }
 
-
-		//PivotGrid.localPosition = new Vector2(PivotGrid.localPosition.x, Deadline.position.y + (_gridManager.GetCellSizeY() * CELL_SIZE_Y));
+		PivotGrid.localPosition = new Vector2(PivotGrid.localPosition.x, Deadline.localPosition.y + _gridManager.GetGridSizeY() * CELL_SIZE_Y + 10);
+		Debug.LogError(_gridManager.GetGridSizeY());
 
         for (int i = 0; i < _gridManager.GetGridSizeX(); i++)
         {
-			for (int j = 0; j < _gridManager.GetGridSizeY() - 3; j++)
+			for (int j = 0; j < level.numRows; j++)
             {
                 if (_gridManager.IsValidGridPosition(i, j))
                 {
@@ -73,10 +73,10 @@ public class BallManager : MonoBehaviour
 
     Ball instantiateNewBall(Common.BallColors color)
     {
-        GameObject go = (GameObject)GameObject.Instantiate(BallPrefab);
+        GameObject go = GameObject.Instantiate(BallPrefab);
         go.transform.parent = PivotGrid;
         go.transform.localScale = Vector3.one;
-        go.transform.localPosition = new Vector3(-1000, 0, 0);
+        go.transform.localPosition = new Vector3(0, 0, 0);
             
         Ball ball = go.GetComponent<Ball>();
         ball.Init(this);
