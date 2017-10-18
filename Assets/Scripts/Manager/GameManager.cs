@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public InputController inputController;
 
     public Gun gun;
-    public Pusher pusher;
     public Deadline deadline;
 
     public LevelProfile _level;
@@ -25,7 +24,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gun.InitGun(this);
-        pusher.InitPusher(this);
         deadline.InitLine(this);
 
         registerEventScore();
@@ -47,8 +45,6 @@ public class GameManager : MonoBehaviour
 
         gun.LoadDoneBullets(ballManager.GenerateBallAsBullet(), ballManager.GenerateBallAsBullet());
         gun.UnBlockGun();
-
-        pusher.OnResume();
 
         ballManager.InitBalls(GetLevelProfile());
         uiManager.NormalMode();
@@ -74,8 +70,6 @@ public class GameManager : MonoBehaviour
 //        Debug.Log("Gameover");
         _gameState = Common.GameState.Gameover;
 
-        pusher.OnPause();
-
         gun.BlockGun();
 
         uiManager.DisplayGameOver();
@@ -93,8 +87,6 @@ public class GameManager : MonoBehaviour
         gun.ClearBullets();
         gun.ResetGunDirection();
 
-        pusher.Reset();
-
         deadline.Reset();
 
         uiManager.DisableText();
@@ -107,8 +99,6 @@ public class GameManager : MonoBehaviour
     public void OnWin()
     {
         _gameState = Common.GameState.Gameover;
-
-        pusher.OnPause();
 
         gun.BlockGun();
 
