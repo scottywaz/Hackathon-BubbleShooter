@@ -23,18 +23,15 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
 	public virtual void OnPointerDown (PointerEventData eventData)
 	{
-		Debug.LogError ("pointer Down");
 	}
 
 	public virtual void OnPointerUp (PointerEventData eventData)
 	{
-		Debug.LogError ("pointer UP");
 		OnTouch (eventData.position);
 	}
 
 	public virtual void OnDrag (PointerEventData eventData)
 	{
-		Debug.LogError ("drag");
 		OnDrag (eventData.position);
 	}
 

@@ -24,13 +24,13 @@ public class UIManager : MonoBehaviour
 
     public void DisplayGameOver()
     {
-        _centerText.gameObject.SetActive(true);
-        _centerText.text = "Game Over";
+		_centerText.transform.parent.gameObject.SetActive(true);
+        _centerText.text = "Oh fudge! Game Over";
     }
 
     public void DisplayWin()
     {
-        _centerText.gameObject.SetActive(true);
+		_centerText.transform.parent.gameObject.SetActive(true);
         _centerText.text = "Win";
     }
 
@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
 
     public void DisableText()
     {
-        _centerText.gameObject.SetActive(false);
+		_centerText.transform.parent.gameObject.SetActive(false);
     }
 
     public void TurnOnRedAlert()

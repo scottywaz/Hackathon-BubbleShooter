@@ -13,5 +13,5 @@ public class LevelProfile
 	}
 
 	public int numRows = 20;
-	public int extraRows = 5;
+	public int extraRows = 7;
 }

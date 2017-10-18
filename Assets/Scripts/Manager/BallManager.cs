@@ -44,8 +44,7 @@ public class BallManager : MonoBehaviour
             _numberOfDiffColor = level.GetNumColor();
         }
 
-		PivotGrid.localPosition = new Vector2(PivotGrid.localPosition.x, Deadline.localPosition.y + _gridManager.GetGridSizeY() * CELL_SIZE_Y + 10);
-		Debug.LogError(_gridManager.GetGridSizeY());
+		PivotGrid.localPosition = new Vector2(PivotGrid.localPosition.x, (Deadline.localPosition.y + ((level.numRows + level.extraRows-1) * CELL_SIZE_Y)) + 10);
 
         for (int i = 0; i < _gridManager.GetGridSizeX(); i++)
         {
@@ -59,7 +58,6 @@ public class BallManager : MonoBehaviour
                 }
             }
         }
-
     }
 
     public Ball GenerateBallAsBullet()
