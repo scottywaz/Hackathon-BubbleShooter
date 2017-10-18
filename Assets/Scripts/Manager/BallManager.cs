@@ -38,7 +38,7 @@ public class BallManager : MonoBehaviour
     {
         if (_gridManager == null)
         {
-            _gridManager = new GridManager(10, 14, 96, 96);
+            _gridManager = new GridManager(10, 14, 105, 96);
             _numberOfInitRow = level.GetInitRow();
             _numberOfDiffColor = level.GetNumColor();
         }

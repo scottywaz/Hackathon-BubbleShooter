@@ -12,6 +12,7 @@ public class Parallax : MonoBehaviour
     private float _slide;
     private bool _isPlaying;
     private Counter _counter;
+
     // Use this for initialization
     void Awake()
     {
