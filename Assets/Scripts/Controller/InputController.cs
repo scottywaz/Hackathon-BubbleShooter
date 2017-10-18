@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputController : MonoBehaviour, IPointerUpHandler, IDragHandler
+public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 	Vector2 touchOrigin;
 	public Counter counter;
@@ -21,13 +21,20 @@ public class InputController : MonoBehaviour, IPointerUpHandler, IDragHandler
 	}
 #endif
 
-	public void OnPointerUp (PointerEventData eventData)
+	public virtual void OnPointerDown (PointerEventData eventData)
 	{
+		Debug.LogError ("pointer Down");
+	}
+
+	public virtual void OnPointerUp (PointerEventData eventData)
+	{
+		Debug.LogError ("pointer UP");
 		OnTouch (eventData.position);
 	}
 
 	public virtual void OnDrag (PointerEventData eventData)
 	{
+		Debug.LogError ("drag");
 		OnDrag (eventData.position);
 	}
 
