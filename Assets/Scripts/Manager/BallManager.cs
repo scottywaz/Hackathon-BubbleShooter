@@ -7,18 +7,20 @@ using System.Collections.Generic;
 
 public class BallManager : MonoBehaviour
 {
-
+	public Transform Deadline;
     public GameObject BallPrefab;
     public Transform PivotGrid;
 
     GridManager _gridManager;
-    int _numberOfInitRow;
     int _numberOfDiffColor;
     Vector3 _originalPosition;
 
     Common.SimpleEvent _clearBallEvent;
     Common.SimpleEventIntegerParams _scoreEvent;
     Score _score;
+
+	private static int CELL_SIZE_X = 105;
+	private static int CELL_SIZE_Y = 96;
 
     // Use this for initialization
     void Start()
@@ -38,14 +40,16 @@ public class BallManager : MonoBehaviour
     {
         if (_gridManager == null)
         {
-            _gridManager = new GridManager(10, 14, 105, 96);
-            _numberOfInitRow = level.GetInitRow();
+			_gridManager = new GridManager(10, level.numRows + 3, CELL_SIZE_X, CELL_SIZE_Y);
             _numberOfDiffColor = level.GetNumColor();
         }
 
+
+		//PivotGrid.localPosition = new Vector2(PivotGrid.localPosition.x, Deadline.position.y + (_gridManager.GetCellSizeY() * CELL_SIZE_Y));
+
         for (int i = 0; i < _gridManager.GetGridSizeX(); i++)
         {
-            for (int j = 0; j < _numberOfInitRow; j++)
+			for (int j = 0; j < _gridManager.GetGridSizeY() - 3; j++)
             {
                 if (_gridManager.IsValidGridPosition(i, j))
                 {
