@@ -14,6 +14,7 @@ public class AimingShotLine : MonoBehaviour
     public Transform gun;
     public GameObject prefab;
     public Transform linePivot;
+	public LineRenderer lineRender;
 
     List<GameObject> lineSegments = new List<GameObject>();
 
@@ -41,11 +42,12 @@ public class AimingShotLine : MonoBehaviour
                 listHitWallsLocal.Add(linePivot.InverseTransformPoint(v));
             });
 
+		UpdateLineRendererPoints (listHitWallsLocal);
         // render texture based list 
-        prepareLines(listHitWallsLocal.Count);
+        //prepareLines(listHitWallsLocal.Count);
         for (int i = 0; i < listHitWallsLocal.Count-1; i++)
         {
-            drawTextureBasedLine(lineSegments[i], listHitWallsLocal[i], listHitWallsLocal[i+1]);
+            //drawTextureBasedLine(lineSegments[i], listHitWallsLocal[i], listHitWallsLocal[i+1]);
         }
     }
 
@@ -114,4 +116,31 @@ public class AimingShotLine : MonoBehaviour
         texture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(33, (end - start).magnitude);
         texture.SetActive(true);    
     }
+
+	List<Vector3> RemoveDuplicatePoints(List<Vector3> points)
+	{
+		List<Vector3> newList = new List<Vector3>();
+
+		for (int i = 0; i < points.Count; i++)
+		{
+			if (!newList.Contains(points[i]))
+			{
+				newList.Add(points[i]);
+			}
+		}
+
+		return newList;
+	}
+
+	void UpdateLineRendererPoints(List<Vector3> points)
+	{
+		List<Vector3> linePoints = RemoveDuplicatePoints(points);
+		lineRender.numPositions = linePoints.Count;
+
+		for (int i = 0; i < linePoints.Count; i++)
+		{
+			Vector3 point = new Vector3 (linePoints[i].x,linePoints [i].y, -20f);
+			lineRender.SetPosition (i, point);
+		}
+	}
 }
