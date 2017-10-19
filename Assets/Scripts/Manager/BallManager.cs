@@ -10,6 +10,7 @@ public class BallManager : MonoBehaviour
 	public Transform Deadline;
 	public GameObject BallPrefab;
 	public Transform PivotGrid;
+	public GameManager GameManager;
 
 	GridManager _gridManager;
 	int _numberOfDiffColor;
@@ -176,6 +177,7 @@ public class BallManager : MonoBehaviour
 
 	public void AssignBulletToGrid(Ball bullet, Vector3 position)
 	{
+		GameManager.gun.UnBlockGun();
 		bullet.transform.parent = PivotGrid;
 		bullet.transform.localScale = Vector3.one;
 
@@ -185,6 +187,7 @@ public class BallManager : MonoBehaviour
 
 	public void AssignBulletToGrid(Ball bullet, GridCell gridCellClue)
 	{
+		GameManager.gun.UnBlockGun();
 		bullet.transform.parent = PivotGrid;
 		bullet.transform.localScale = Vector3.one;
 

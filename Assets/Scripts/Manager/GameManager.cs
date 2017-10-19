@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void OnShootAction()
     {
+		gun.BlockGun();
         Ball newBullet = ballManager.GenerateBallAsBullet();
         gun.LoadBullets(newBullet);
         AudioManager.Instance.PlaySound(AudioManager.Instance.shoot);
