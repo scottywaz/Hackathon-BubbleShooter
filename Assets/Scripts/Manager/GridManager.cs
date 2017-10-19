@@ -87,7 +87,7 @@ public class GridManager
     {
         if (IsValidGridPosition(x, y))
         {
-            return generatedGridWithBalls[x, y].Ball != null;
+			return generatedGridWithBalls[x, y].Ball != null;
         }
         return false;
     }
@@ -206,6 +206,18 @@ public class GridManager
         } while(neighbors.Count > 0);
         return sameColors;
     }
+
+	public bool IsRowOccupied(int row)
+	{
+		for (int i = 0; i < _gridSizeX; i++)
+		{
+			if(IsOccupiedBall(i, row))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
     #endregion 
 
     #region Holding Balls relate
