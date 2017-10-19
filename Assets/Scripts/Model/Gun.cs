@@ -75,7 +75,7 @@ public class Gun : MonoBehaviour
         {
             Vector3 direction = position - transform.position;
             //Debug.Log(Vector3.Angle(transform.up, direction));
-            if (Vector3.Angle(Vector3.up, direction) < 60)
+            if (Vector3.Angle(Vector3.up, direction) < 75)
             {
                 transform.up = direction;
             }

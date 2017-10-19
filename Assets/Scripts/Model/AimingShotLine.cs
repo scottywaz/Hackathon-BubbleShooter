@@ -65,9 +65,9 @@ public class AimingShotLine : MonoBehaviour
 			Vector2 nextPoint = hitBall.point;
 			if(wallAlreadyHit)
 			{
-				if(Vector2.Distance(ray.origin, hitBall.point) > 100)
+				if(Mathf.Abs(Vector2.Distance(ray.origin, hitBall.point)) > 175)
 				{
-					nextPoint = ray.origin + new Vector2(100, 100);
+					nextPoint = ray.GetPoint(175);
 				}
 			}
 
