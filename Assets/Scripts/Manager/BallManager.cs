@@ -15,6 +15,7 @@ public class BallManager : MonoBehaviour
 	int _numberOfDiffColor;
 	Vector3 _originalPosition;
 	int _bottomRow;
+	int _lastRowToPushDown;
 
 	Common.SimpleEvent _clearBallEvent;
 	Common.SimpleEventIntegerParams _scoreEvent;
@@ -46,6 +47,7 @@ public class BallManager : MonoBehaviour
 		}
 
 		_bottomRow = level.numRows - 1;
+		_lastRowToPushDown = Mathf.FloorToInt((850 - Deadline.transform.localPosition.y)/CELL_SIZE_Y) - level.extraRows;
 		PivotGrid.localPosition = new Vector2(PivotGrid.localPosition.x, (Deadline.localPosition.y + ((level.numRows + level.extraRows - 1) * CELL_SIZE_Y)) + 10);
 
 		for (int i = 1; i < _gridManager.GetGridSizeX()-1; i++)
@@ -282,11 +284,14 @@ public class BallManager : MonoBehaviour
 
 	int NumberOfRowsRemoved(int soFar = 0)
 	{
-		if (!_gridManager.IsRowOccupied(_bottomRow))
+		if (_bottomRow > _lastRowToPushDown)
 		{
-			soFar++;
-			_bottomRow--;
-			soFar = NumberOfRowsRemoved(soFar);
+			if (!_gridManager.IsRowOccupied(_bottomRow))
+			{
+				soFar++;
+				_bottomRow--;
+				soFar = NumberOfRowsRemoved(soFar);
+			}
 		}
 
 		return soFar;
