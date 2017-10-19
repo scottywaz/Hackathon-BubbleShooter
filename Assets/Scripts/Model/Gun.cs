@@ -96,7 +96,6 @@ public class Gun : MonoBehaviour
 
     public void LoadDoneBullets(Ball first, Ball second)
     {
-        //Debug.Log("First Bullet " + first.GetBallColor() + " second bullet " + second.GetBallColor());
         _bullet = first;
         _preBullet = second;
 
@@ -108,6 +107,20 @@ public class Gun : MonoBehaviour
 
         _isGunReady = true;
     }
+
+	public void SwapBullets()
+	{
+		Debug.Log("Swap Bullets");
+		_bullet.transform.parent = PreBulletTransform;
+		_bullet.transform.localPosition = Vector3.zero;
+
+		_preBullet.transform.parent = BulletTransform;
+		_preBullet.transform.localPosition = Vector3.zero;
+
+		Ball temp = _bullet;
+		_bullet = _preBullet;
+		_preBullet = temp;
+	}
 
     public void BlockGun()
     {
