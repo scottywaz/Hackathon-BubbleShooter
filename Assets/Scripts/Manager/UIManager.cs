@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
         _score.text = score.ToString();
     }
 
-	public void UpdateTimeRemaining(int time)
+	public void UpdateTimeRemaining(string time)
 	{
 		_timeRemaining.text = time.ToString();
 	}
