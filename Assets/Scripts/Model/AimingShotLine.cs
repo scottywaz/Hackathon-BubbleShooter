@@ -49,7 +49,7 @@ public class AimingShotLine : MonoBehaviour
         }
     }
 
-    List<Vector2> raycastRecursive(Ray2D ray)
+    List<Vector2> raycastRecursive(Ray2D ray, bool wallAlreadyHit = false)
     {
         List<Vector2> list = new List<Vector2>();
         RaycastHit2D hitWall = Physics2D.Raycast(ray.origin, ray.direction,
@@ -60,8 +60,17 @@ public class AimingShotLine : MonoBehaviour
 
         if (hitBall.collider != null || ray.direction.Equals(Vector2.zero))
         {
-            Debug.DrawLine(ray.origin, hitBall.point, Color.red);
-            list.Add(hitBall.point);
+			Vector2 nextPoint = hitBall.point;
+			if(wallAlreadyHit)
+			{
+				if(Vector2.Distance(ray.origin, hitBall.point) > 100)
+				{
+					nextPoint = ray.origin + new Vector2(100, 100);
+				}
+			}
+
+			Debug.DrawLine(ray.origin, nextPoint, Color.red);
+			list.Add(nextPoint);
             return list;
         }
         if (hitWall.collider != null)
@@ -71,7 +80,7 @@ public class AimingShotLine : MonoBehaviour
             Vector2 dir = oppositePoint - hitWall.point;
             list.Add(hitWall.point);
             //Debug.DrawRay(hitWall.point+dir.normalized,dir*800, Color.blue);
-            list.AddRange(raycastRecursive(new Ray2D(hitWall.point + dir.normalized, dir)));
+            list.AddRange(raycastRecursive(new Ray2D(hitWall.point + dir.normalized, dir), true));
         }
         return list;
     }
