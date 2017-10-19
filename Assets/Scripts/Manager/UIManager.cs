@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
 
     public Text _centerText;
     public Text _score;
+	public Text _timeRemaining;
+	public Text _objectiveProgress;
+
 
     // Use this for initialization
     void Start()
@@ -38,6 +41,16 @@ public class UIManager : MonoBehaviour
     {
         _score.text = score.ToString();
     }
+
+	public void UpdateTimeRemaining(int time)
+	{
+		_timeRemaining.text = time.ToString();
+	}
+
+	public void UpdateObjectiveProgress(int objective)
+	{
+		_objectiveProgress.text = objective.ToString();
+	}
 
     public void DisableText()
     {
