@@ -14,6 +14,7 @@ public class BallManager : MonoBehaviour
     GridManager _gridManager;
     int _numberOfDiffColor;
     Vector3 _originalPosition;
+	int emptySlotWeight = 0;
 
     Common.SimpleEvent _clearBallEvent;
     Common.SimpleEventIntegerParams _scoreEvent;
@@ -52,9 +53,12 @@ public class BallManager : MonoBehaviour
             {
                 if (_gridManager.IsValidGridPosition(i, j))
                 {
-                    Ball ball = instantiateNewBall(randomBallColor(_numberOfDiffColor+1));
+                    Ball ball = instantiateNewBall(randomBallColor());
                     assignBallToGrid(ball, i, j);
-                    ball.FixPosition();
+					if (ball != null)
+					{
+						ball.FixPosition ();
+					}
                 }
             }
         }
@@ -63,6 +67,10 @@ public class BallManager : MonoBehaviour
     public Ball GenerateBallAsBullet()
     {
         Common.BallColors randomColor = (Common.BallColors)Random.Range(1, _numberOfDiffColor+1);
+		while (randomColor == Common.BallColors.Empty)
+		{
+			randomColor = (Common.BallColors)Random.Range (1, _numberOfDiffColor + 1);
+		}
         Ball ball = instantiateNewBall(randomColor);
         ball.tag = Common.LAYER_BULLET;
         ball.SetNewLayer(Common.LAYER_BULLET);
@@ -71,6 +79,9 @@ public class BallManager : MonoBehaviour
 
     Ball instantiateNewBall(Common.BallColors color)
     {
+		if (color == Common.BallColors.Empty)
+			return null;
+
         GameObject go = GameObject.Instantiate(BallPrefab);
         go.transform.parent = PivotGrid;
         go.transform.localScale = Vector3.one;
@@ -85,17 +96,35 @@ public class BallManager : MonoBehaviour
 
     void assignBallToGrid(Ball ball, int x, int  y)
     {
-        GridCell grid = _gridManager.RegisterBall(x, y, ball);
-        ball.SetGridPosition(grid);
-      
-        ball.transform.localPosition = ball.GetGridPosition().Position;
-        ball.name = "Ball_" + x.ToString() + y.ToString();
+
+    	GridCell grid = _gridManager.RegisterBall(x, y, ball);
+
+		if (ball != null)
+		{
+			ball.SetGridPosition (grid);
+
+			ball.transform.localPosition = ball.GetGridPosition ().Position;
+			ball.name = "Ball_" + x.ToString () + y.ToString ();
+		}
     }
 
-    Common.BallColors randomBallColor(int num)
-    {
-        return (Common.BallColors)Random.Range(1, num);
-    }
+	Common.BallColors randomBallColor ()
+	{
+		List<Common.BallColors> weightedBallColors = new List<Common.BallColors> ();
+
+		weightedBallColors.Add (Common.BallColors.Blue);
+		weightedBallColors.Add (Common.BallColors.Green);
+		weightedBallColors.Add (Common.BallColors.Orange);
+		weightedBallColors.Add (Common.BallColors.Pink);
+		weightedBallColors.Add (Common.BallColors.Red);
+		weightedBallColors.Add (Common.BallColors.Yellow);
+
+		for (int i = 0; i < emptySlotWeight; i++) {
+			weightedBallColors.Add (Common.BallColors.Empty);
+		}
+
+		return weightedBallColors [Random.Range (0, weightedBallColors.Count)];
+	}
 
     Common.BallColors getBallColorsFixGeneration(int x, int y)
     {

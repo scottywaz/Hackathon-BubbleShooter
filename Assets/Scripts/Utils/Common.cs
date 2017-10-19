@@ -14,7 +14,8 @@ public class Common
 		Green,
 		Yellow,
 		Pink,
-		Orange
+		Orange,
+		Empty
 	}
 
 	public enum GameState
