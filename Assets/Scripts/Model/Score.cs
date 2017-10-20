@@ -4,18 +4,35 @@
 using UnityEngine;
 using System.Collections;
 
-public class Score  {
+public class Score  
+{
     int _score;
-    public int GetScore(){
+	int _ballsBroken = 0;
+
+    public int GetScore()
+	{
         return _score;
     }
-    public void SetScore(int score){
+
+    public void SetScore(int score)
+	{
         _score = score;
     }
+
+	public int GetBallsBroken()
+	{
+		return _ballsBroken;
+	}
+
+	public void AddBallsBroken(int numBalls)
+	{
+		_ballsBroken += numBalls;
+	}
 	
     // fomular score scale 
-    public int CalculateScore(int pointSameColor, int fallingDown){
-        return pointSameColor * 10 + fallingDown * 2; 
+    public int CalculateScore(int pointSameColor, int fallingDown)
+	{
+        return pointSameColor * 30 + fallingDown * 150; 
     }
 
 }
