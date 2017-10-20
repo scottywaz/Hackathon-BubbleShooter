@@ -30,9 +30,9 @@ public class Score
 	}
 	
     // fomular score scale 
-    public int CalculateScore(int pointSameColor, int fallingDown)
+    public int CalculateScore(int pointSameColor, int fallingDown, int wallHits)
 	{
-        return pointSameColor * 30 + fallingDown * 150; 
+		return pointSameColor * 30 + fallingDown * 150 + wallHits * 30; 
     }
 
 }

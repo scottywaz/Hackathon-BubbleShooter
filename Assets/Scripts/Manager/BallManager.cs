@@ -220,16 +220,16 @@ public class BallManager : MonoBehaviour
 	#endregion
 
 	#region Actions and Events
-	public void ExplodeSameColorBall(Ball ball)
+	public void ExplodeSameColorBall(Ball ball, int wallHits)
 	{
-		if (checkAndExplodeSameColorBall(ball))
+		if (checkAndExplodeSameColorBall(ball, wallHits))
 		{
 			AudioManager.Instance.PlaySound(AudioManager.Instance.success);
 			checkClearBalls();
 		}
 	}
 
-	public bool checkAndExplodeSameColorBall(Ball bullet)
+	public bool checkAndExplodeSameColorBall(Ball bullet, int wallHits)
 	{
 		//Debug.Log("Checking...");
 		// get list same colors
@@ -253,7 +253,7 @@ public class BallManager : MonoBehaviour
 
 			if (_scoreEvent != null)
 			{
-				int calScore = _score.CalculateScore(noBallsSameColor, noBallFallingDown);
+				int calScore = _score.CalculateScore(noBallsSameColor, noBallFallingDown, wallHits);
 				_score.AddBallsBroken(noBallsSameColor + noBallFallingDown);
 				_score.SetScore(_score.GetScore() + calScore);
 				_scoreEvent(_score.GetScore(), _score.GetBallsBroken());

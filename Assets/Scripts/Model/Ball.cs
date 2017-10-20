@@ -38,6 +38,7 @@ public class Ball : MonoBehaviour
 	private bool _isMoving = false;
 	private BallManager _ballManager;
 	private Counter _counter;
+	private int _wallHits;
 
 
 	void Awake ()
@@ -168,7 +169,7 @@ public class Ball : MonoBehaviour
 		if (_isMoving && gameObject.tag.Equals (Common.LAYER_BULLET)) 
 		{
 			string nameHit = other.gameObject.tag;
-			if (nameHit.Equals (Common.LAYER_BALL) || nameHit.Equals (Common.LAYER_WALL) || nameHit.Equals(Common.LAYER_CEILING)) 
+			if (nameHit.Equals (Common.LAYER_BALL) || nameHit.Equals(Common.LAYER_CEILING)) 
 			{
 				gameObject.tag = Common.LAYER_BALL;
 				SetNewLayer (Common.LAYER_BALL);
@@ -183,10 +184,12 @@ public class Ball : MonoBehaviour
 					AssignBulletToGrid (other.transform.localPosition);
 				}
 
-				_ballManager.ExplodeSameColorBall (this);
+				_ballManager.ExplodeSameColorBall (this, _wallHits);
 			}
-
+			else if(nameHit.Equals(Common.LAYER_WALL))
+			{
+				_wallHits++;
+			}
 		}
 	}
-
 }
