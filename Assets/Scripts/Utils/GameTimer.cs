@@ -30,7 +30,7 @@ public class GameTimer: MonoBehaviour
 
 		}
 
-		uiManager.UpdateTimeRemaining(string.Format ("{0:00} : {1:00}", minutes, seconds));
+		uiManager.UpdateTimeRemaining(string.Format ("{0:0} : {1:00}", minutes, seconds));
 	}
 
 
