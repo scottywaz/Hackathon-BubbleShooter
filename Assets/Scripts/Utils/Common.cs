@@ -33,4 +33,5 @@ public class Common
 	public const string LAYER_WALL_LINE = "WallForAimingLine";
 	public const string LAYER_DEADLINE = "Deadline";
 	public const string LAYER_NONE = "NoInteraction";
+	public const string LAYER_CEILING = "Ceiling";
 }

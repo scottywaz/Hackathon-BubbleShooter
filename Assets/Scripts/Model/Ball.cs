@@ -168,7 +168,7 @@ public class Ball : MonoBehaviour
 		if (_isMoving && gameObject.tag.Equals (Common.LAYER_BULLET)) 
 		{
 			string nameHit = other.gameObject.tag;
-			if (nameHit.Equals (Common.LAYER_BALL) || nameHit.Equals (Common.LAYER_WALL)) 
+			if (nameHit.Equals (Common.LAYER_BALL) || nameHit.Equals (Common.LAYER_WALL) || nameHit.Equals(Common.LAYER_CEILING)) 
 			{
 				gameObject.tag = Common.LAYER_BALL;
 				SetNewLayer (Common.LAYER_BALL);
