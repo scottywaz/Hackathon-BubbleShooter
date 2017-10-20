@@ -63,12 +63,11 @@ public class AimingShotLine : MonoBehaviour
         if (hitBall.collider != null || ray.direction.Equals(Vector2.zero))
         {
 			Vector2 nextPoint = hitBall.point;
-			if(wallAlreadyHit)
+			int dist = wallAlreadyHit ? 175 : 500;
+
+			if(Mathf.Abs(Vector2.Distance(ray.origin, hitBall.point)) > dist)
 			{
-				if(Mathf.Abs(Vector2.Distance(ray.origin, hitBall.point)) > 175)
-				{
-					nextPoint = ray.GetPoint(175);
-				}
+				nextPoint = ray.GetPoint(dist);
 			}
 
 			Debug.DrawLine(ray.origin, nextPoint, Color.red);
