@@ -40,14 +40,14 @@ public class UIManager : MonoBehaviour
 	public void DisplayGameOver ()
 	{
 		_centerText.transform.parent.gameObject.SetActive (true);
-		_centerText.text = "Oh fudge! Game Over";
+		_centerText.text = "Oh fudge!\nGame Over";
 		StartCoroutine (ShowResults ());
 	}
 
 	public void DisplayWin ()
 	{
 		_centerText.transform.parent.gameObject.SetActive (true);
-		_centerText.text = "Win";
+		_centerText.text = "Win!";
 		StartCoroutine (ShowResults ());
 	}
 
@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
 		var minutes = time / 60; //Divide the guiTime by sixty to get the minutes.
 		var seconds = time % 60;//Use the euclidean division for the seconds.
 
-		_timeRemaining.text = string.Format ("{0:0} : {1:00}", minutes, seconds);
+		_timeRemaining.text = string.Format ("{0:0}:{1:00}", minutes, seconds);
 	}
 
 	public void UpdateObjectiveProgress (int objective)
