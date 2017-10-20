@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour
 		yield return new WaitForSeconds (2f);
 		resultsWindow.SetActive (true);
 		hud.SetActive (false);
+		_centerText.transform.parent.gameObject.SetActive (false);
 
 		resultsScore.text = _currentScore.ToString ();
 		resultsObjective.text = _currentObjective.ToString();
