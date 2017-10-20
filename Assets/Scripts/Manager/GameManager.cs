@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
         gun.UnBlockGun();
 
         ballManager.InitBalls(GetLevelProfile());
-        uiManager.NormalMode();
 
         AudioManager.Instance.PlaySound(AudioManager.Instance.click);
     }
@@ -111,7 +110,6 @@ public class GameManager : MonoBehaviour
 
     public void OnWarning()
     {
-        uiManager.TurnOnRedAlert();
         AudioManager.Instance.PlaySound(AudioManager.Instance.warning);
 
     }
@@ -132,8 +130,8 @@ public class GameManager : MonoBehaviour
             {
                 if (_gameState == Common.GameState.Gameover)
                 {
-                    OnReset();
-                    OnStartGame();
+                    //OnReset();
+                    //OnStartGame();
                 }
             });
     }

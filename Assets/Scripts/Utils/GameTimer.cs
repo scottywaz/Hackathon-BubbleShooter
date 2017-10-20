@@ -19,9 +19,6 @@ public class GameTimer: MonoBehaviour
 			
 		time -= Time.deltaTime;
 
-		var minutes = time / 60; //Divide the guiTime by sixty to get the minutes.
-		var seconds = time % 60;//Use the euclidean division for the seconds.
-
 		//End game if time goes down to 0
 		if (time < 0) {
 
@@ -30,7 +27,7 @@ public class GameTimer: MonoBehaviour
 
 		}
 
-		uiManager.UpdateTimeRemaining(string.Format ("{0:0} : {1:00}", minutes, seconds));
+		uiManager.UpdateTimeRemaining(time);
 	}
 
 
