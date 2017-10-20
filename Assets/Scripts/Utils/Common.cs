@@ -24,7 +24,7 @@ public class Common
 		Gameover
 	}
 	public delegate void SimpleEvent ();
-	public delegate void SimpleEventIntegerParams (int param);
+	public delegate void SimpleEventIntegerParams (int param, int param2);
 
 
 	public const string LAYER_BALL = "Ball";

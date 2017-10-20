@@ -254,8 +254,9 @@ public class BallManager : MonoBehaviour
 			if (_scoreEvent != null)
 			{
 				int calScore = _score.CalculateScore(noBallsSameColor, noBallFallingDown);
+				_score.AddBallsBroken(noBallsSameColor + noBallFallingDown);
 				_score.SetScore(_score.GetScore() + calScore);
-				_scoreEvent(_score.GetScore());
+				_scoreEvent(_score.GetScore(), _score.GetBallsBroken());
 			}
 		}
 

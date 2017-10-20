@@ -116,9 +116,10 @@ public class GameManager : MonoBehaviour
     #endregion 
 
     #region UI
-    void displayScore(int score)
+    void displayScore(int score, int numBalls)
     {
         uiManager.UpdateScore(score);
+		uiManager.UpdateObjectiveProgress(numBalls);
     }
     #endregion 
 
