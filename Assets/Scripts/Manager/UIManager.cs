@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
 	private int _currentObjective = 0;
 	private float _timeLeft = 0;
 
+	bool isGameOver = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,14 +43,16 @@ public class UIManager : MonoBehaviour
 	{
 		_centerText.transform.parent.gameObject.SetActive (true);
 		_centerText.text = "Oh fudge!\nGame Over";
-		StartCoroutine (ShowResults ());
+		StartCoroutine (ShowResults (false));
+		isGameOver = true;
 	}
 
 	public void DisplayWin ()
 	{
 		_centerText.transform.parent.gameObject.SetActive (true);
 		_centerText.text = "Win!";
-		StartCoroutine (ShowResults ());
+		StartCoroutine (ShowResults (true));
+		isGameOver = true;
 	}
 
 	public void UpdateScore (int score)
@@ -59,6 +63,9 @@ public class UIManager : MonoBehaviour
 
 	public void UpdateTimeRemaining (float time)
 	{
+		if (isGameOver)
+			return;
+		
 		_timeLeft = time;
 		var minutes = time / 60; //Divide the guiTime by sixty to get the minutes.
 		var seconds = time % 60;//Use the euclidean division for the seconds.
@@ -77,18 +84,31 @@ public class UIManager : MonoBehaviour
 		_centerText.transform.parent.gameObject.SetActive (false);
 	}
 
-	public IEnumerator ShowResults()
+	public IEnumerator ShowResults(bool playerWon)
 	{
 		yield return new WaitForSeconds (2f);
 		resultsWindow.SetActive (true);
 		hud.SetActive (false);
 		_centerText.transform.parent.gameObject.SetActive (false);
 
-		resultsScore.text = _currentScore.ToString ();
+
 		resultsObjective.text = _currentObjective.ToString();
 
-		//needs time bonus calculation
-		timeBonus.text = _timeLeft.ToString ();
+
+		if (playerWon) 
+		{
+			int bonus = (int)(50f * _timeLeft);
+			//needs time bonus calculation
+			timeBonus.text = bonus.ToString();
+			int totalScore = _currentScore + bonus;
+
+			resultsScore.text = totalScore.ToString();
+		} 
+		else
+		{
+			timeBonus.text = "0";
+			resultsScore.text = _currentScore.ToString ();
+		}
 	}
 
 	void OnContinue()
